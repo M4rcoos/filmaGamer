@@ -1,7 +1,8 @@
 {
   "expo": {
+   
     "name": "Filma gamer",
-    "slug": "Filma gamer",
+    "slug": "Filmagamer",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,10 +22,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#000"
-      }
+      },
+      "package": "com.m4rcoos.Filmagamer"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "620361b8-dff9-4991-8511-264192b8ae2a"
+      }
     }
   }
 }
