@@ -24,10 +24,13 @@ export function Routes() {
         },
 
         tabBarActiveTintColor: theme.colors.green_700,
-        tabBarInactiveTintColor: theme.colors.gray,
-        headerStyle: {
-          backgroundColor: theme.colors.green_700,
+        tabBarInactiveTintColor: theme.colors.gray_20,
+        headerStyle:{ 
+          backgroundColor: theme.colors.gray_25,
+          height: 100
         },
+        headerTitleStyle:{ color: theme.colors.green_700 },
+      
       }}
     >
       <Tab.Screen 
@@ -38,6 +41,8 @@ export function Routes() {
         }}
         name="Videos" component={Striming} 
       />
+      {/*
+       TAB SEARCH
       <Tab.Screen
         options={{
           tabBarIcon: ({ size, color }) => (
@@ -45,7 +50,7 @@ export function Routes() {
           )
         }}
         name="Procurar" component={Search}
-      />
+      /> */}
       <Tab.Screen
         options={{
           tabBarIcon: ({ size, color }) => (
