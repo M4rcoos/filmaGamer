@@ -20,7 +20,6 @@ const style = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor:'#ff0000'
   },
   text: {
     fontSize: 25,
