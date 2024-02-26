@@ -1,13 +1,11 @@
 import { Button, FlatList, Image, Text, View, StyleSheet } from "react-native";
 import * as C from "./styles";
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { Video, ResizeMode } from "expo-av";
 import { theme } from "../../styles/theme";
-import { Feather, Entypo } from "@expo/vector-icons";
-import { IVideoPlayer } from "../../interfaces/IVideoPlayer";
-import { FavoriteContext } from "../../contexts/FavoritesContext";
+
 import { Api, token } from "../../services/api";
 import { IApiResponseArena } from "../../interfaces/IArena";
+import { IVideoInfo } from "../../interfaces/IVideoPlayer";
 
 export  function Striming() {
   const [response, setResponse] = useState<IApiResponseArena | null>(null);
@@ -40,13 +38,33 @@ export  function Striming() {
   }, [token])
   ;
   
-
+async function handleVideos  (name: string){
+  try {
+    const response = await Api.post<IVideoInfo>(
+      "/",
+      {
+        Consulta: "SelArenas",
+        Parametros: "'2023-07-08', '2023-07-08', 'ArenaSantana'",
+        Tipo: "J",
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`
+        },
+      }
+    );
+    
+  } catch (error) {
+    console.error('Erro na solicitação:', error);
+  }
+} 
   return (
     <C.Container>
  {response?.result.map((arena, index) => (
         <C.Content key={index}>
           <Image source={{ uri: arena.Logo }} style={{ width: 100, height: 100 }} />
-          <C.Text>Quadra: {arena.NomExibicao}</C.Text>
+          <C.Text>{arena.NomExibicao}</C.Text>
         </C.Content>
       ))}
     </C.Container>

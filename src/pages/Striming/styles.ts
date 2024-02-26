@@ -8,16 +8,19 @@ export const Container = styled.SafeAreaView`
   
 `
 export const Content = styled.TouchableOpacity`
- flex-direction: row;
- gap:8px;
- align-items:center;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
   margin-top: 18px;
-  border-color: 'red';
+  border-color: ${theme.colors.gray_10} ;
+  border-radius:14px;
+  border-width: 2px; /* Adiciona uma borda de 2 pixels */
+  padding: 10px; 
 `
 export const Text = styled.Text`
-  font-size: 24px;
-    color: ${theme.colors.gray_20};
-    max-width: min-content;
+   font-size: 24px;
+  color: ${theme.colors.gray_20};
+  max-width: 70%;
 `
 export const Footer = styled.View`
 flex-direction:row;
