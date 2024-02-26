@@ -6,7 +6,7 @@ export const Container = styled.SafeAreaView`
   background-color:  ${theme.colors.gray_25};
   
 `
-export const Content = styled.View`
+export const Content = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   margin-top: 18px;

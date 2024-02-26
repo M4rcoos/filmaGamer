@@ -39,7 +39,7 @@ export function Routes() {
             <Feather name="video" size={size} color={color} />
           )
         }}
-        name="Videos" component={Striming} 
+        name="Arenas" component={Striming} 
       />
       {/*
        TAB SEARCH
