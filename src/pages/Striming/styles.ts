@@ -4,13 +4,20 @@ import { theme } from '../../styles/theme'
 export const Container = styled.SafeAreaView`
   flex: 1;
   background-color:  ${theme.colors.gray_25};
+  padding: 16px;
   
 `
 export const Content = styled.TouchableOpacity`
-  align-items: center;
-  justify-content: center;
+ flex-direction: row;
+ gap:8px;
+ align-items:center;
   margin-top: 18px;
   border-color: 'red';
+`
+export const Text = styled.Text`
+  font-size: 24px;
+    color: ${theme.colors.gray_20};
+    max-width: min-content;
 `
 export const Footer = styled.View`
 flex-direction:row;

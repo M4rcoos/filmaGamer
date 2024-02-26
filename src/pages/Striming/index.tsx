@@ -45,9 +45,8 @@ export  function Striming() {
     <C.Container>
  {response?.result.map((arena, index) => (
         <C.Content key={index}>
-          <Text>NomArena: {arena.NomArena}</Text>
           <Image source={{ uri: arena.Logo }} style={{ width: 100, height: 100 }} />
-          <Text>NomExibicao: {arena.NomExibicao}</Text>
+          <C.Text>Quadra: {arena.NomExibicao}</C.Text>
         </C.Content>
       ))}
     </C.Container>
