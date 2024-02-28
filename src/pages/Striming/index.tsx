@@ -1,15 +1,20 @@
-import { Button, FlatList, Image, Text, View, StyleSheet } from "react-native";
+import { Button, FlatList, Image, Text, View, StyleSheet, TextInput } from "react-native";
 import * as C from "./styles";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { theme } from "../../styles/theme";
 
 import { Api, token } from "../../services/api";
-import { IApiResponseArena } from "../../interfaces/IArena";
+import { IApiResponseArena, IArena } from "../../interfaces/IArena";
 import { IVideoInfo } from "../../interfaces/IVideoPlayer";
+import { useNavigation } from "@react-navigation/native";
 
-export  function Striming() {
+export function Striming() {
   const [response, setResponse] = useState<IApiResponseArena | null>(null);
-  
+  const [filteredData, setFilteredData] = useState<IArena[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>('');
+
+  const navigation = useNavigation();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -27,8 +32,9 @@ export  function Striming() {
             },
           }
         );
-        
+
         setResponse(response.data);
+        setFilteredData( response.data.result || [])
       } catch (error) {
         console.error('Erro na solicitação:', error);
       }
@@ -36,61 +42,37 @@ export  function Striming() {
 
     fetchData();
   }, [token])
-  ;
-  
-async function handleVideos  (name: string){
-  try {
-    const response = await Api.post<IVideoInfo>(
-      "/",
-      {
-        Consulta: "SelArenas",
-        Parametros: "'2023-07-08', '2023-07-08', 'ArenaSantana'",
-        Tipo: "J",
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          'Authorization': `Bearer ${token}`
-        },
-      }
-    );
-    
-  } catch (error) {
-    console.error('Erro na solicitação:', error);
+
+  const handleSearch = (text: string) => {
+    setSearchTerm(text);
+     
+  if (response?.result) {
+    const filteredNames = response.result.filter(name => name.NomExibicao.includes(text));
+    setFilteredData(filteredNames || []);
   }
-} 
+  };
+
   return (
     <C.Container>
- {response?.result.map((arena, index) => (
-        <C.Content key={index}>
-          <Image source={{ uri: arena.Logo }} style={{ width: 100, height: 100 }} />
-          <C.Text>{arena.NomExibicao}</C.Text>
-        </C.Content>
-      ))}
+      <TextInput
+        style={{ color: theme.colors.white, height: 40, borderColor: theme.colors.green_700, borderWidth: 1, margin: 10, paddingLeft: 15, borderRadius: 12 }}
+        placeholder="Procure a quadra"
+        value={searchTerm}
+        onChangeText={handleSearch}
+      />
+      <FlatList
+        data={filteredData}
+        keyExtractor={(item) => item.NomArena.toString()}
+        renderItem={({ item }) => (
+          <C.Content  onPress={() => navigation.navigate('Videos', { nomArena: item.NomArena })} >
+            <Image source={{ uri: item.Logo }} style={{ width: 100, height: 100 }} />
+            <C.Text>{item.NomExibicao}</C.Text>
+          </C.Content >
+        )}
+      />
+
     </C.Container>
   );
 }
 
-const styles = StyleSheet.create({
-  local: {
-    fontSize: 13,
-    color: theme.colors.gray_20,
-    fontWeight: "bold",
-    maxWidth: 300,
-  },
-  title: {
-    fontSize: 20,
-    color: theme.colors.green_700,
-    fontWeight: "bold",
-  },
-  video: {
-    alignSelf: "center",
-    width: 300,
-    height: 200,
-  },
-  buttons: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
+

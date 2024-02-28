@@ -16,6 +16,7 @@
     "@react-navigation/bottom-tabs": "^6.5.11",
     "@react-navigation/material-bottom-tabs": "^6.2.19",
     "@react-navigation/native": "^6.1.9",
+    "@react-navigation/stack": "^6.3.25",
     "@types/styled-components": "^5.1.32",
     "axios": "^1.6.7",
     "expo": "^49.0.20",

@@ -36,21 +36,20 @@ export function Routes() {
       <Tab.Screen 
         options={{
           tabBarIcon: ({ size, color }) => (
-            <Feather name="video" size={size} color={color} />
-          )
-        }}
-        name="Arenas" component={Striming} 
-      />
-      {/*
-       TAB SEARCH
-      <Tab.Screen
-        options={{
-          tabBarIcon: ({ size, color }) => (
             <Feather name="search" size={size} color={color} />
           )
         }}
-        name="Procurar" component={Search}
-      /> */}
+        name="Procurar" component={Striming} 
+      />
+      
+      <Tab.Screen
+        options={{
+          tabBarIcon: ({ size, color }) => (
+            <Feather name="video" size={size} color={color} />
+          )
+        }}
+        name="Videos" component={Search}
+      />
       <Tab.Screen
         options={{
           tabBarIcon: ({ size, color }) => (
