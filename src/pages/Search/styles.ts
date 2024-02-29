@@ -7,7 +7,7 @@ export const Container = styled.SafeAreaView`
   padding: 16px;
   
 `
-export const Content = styled.TouchableOpacity`
+export const Content = styled.View`
   flex-direction: column;
   gap: 8px;
   align-items: center;

@@ -1,6 +1,6 @@
-import { Button, FlatList, Image, Text, View, StyleSheet, TextInput } from "react-native";
+import {  FlatList, Image, TextInput, } from "react-native";
 import * as C from "./styles";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { theme } from "../../styles/theme";
 
 import { Api, token } from "../../services/api";
@@ -64,7 +64,9 @@ export function Striming() {
         data={filteredData}
         keyExtractor={(item) => item.NomArena.toString()}
         renderItem={({ item }) => (
-          <C.Content  onPress={() => navigation.navigate('Videos', { nomArena: item.NomArena })} >
+          
+          <C.Content onPress={() => navigation.navigate('Videos', { nomArena: item.NomArena })}>
+
             <Image source={{ uri: item.Logo }} style={{ width: 100, height: 100 }} />
             <C.Text>{item.NomExibicao}</C.Text>
           </C.Content >

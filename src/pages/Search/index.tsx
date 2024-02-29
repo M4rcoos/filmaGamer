@@ -2,13 +2,14 @@ import { useRoute, RouteProp } from '@react-navigation/native';
 import { IArena } from '../../interfaces/IArena';
 import { Button, FlatList, Image, Text, View, StyleSheet } from "react-native";
 import * as C from './styles'
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Video, ResizeMode } from "expo-av";
 import { theme } from "../../styles/theme";
-import { Feather } from '@expo/vector-icons';
+import {  Feather, Entypo} from '@expo/vector-icons';
 import { Api, token } from '../../services/api';
 import { IArenaResponse, IArenaVideo } from '../../interfaces/IVideoPlayer';
 import { FlashList } from '@shopify/flash-list';
+import { FavoriteContext } from '../../contexts/FavoritesContext';
 
 type SearchScreenParams = {
   nomArena: IArena['NomArena'];
@@ -19,7 +20,7 @@ export function Search() {
   const route = useRoute<RouteProp<Record<string, SearchScreenParams>, string>>();
   const [response, setResponse] = useState<IArenaVideo[]>([])
   const nomArena = route.params?.nomArena;
-
+  const { favorites, setFavorites } = useContext(FavoriteContext)
 
 
   useEffect(() => {
@@ -48,7 +49,7 @@ export function Search() {
     };
 
     fetchData()
-  }, [nomArena])
+  }, [nomArena, favorites])
 
 
   interface IVideoPlayer {
@@ -59,7 +60,18 @@ export function Search() {
     local: string
   }
 
+  const addVideoToFavorite = (video: IArenaVideo) => {
+    const isAlreadyFavorite = favorites.some((favVideo) => favVideo.DatProcessado === video.play);
+    console.log(true)
+    if (!isAlreadyFavorite) {
+      setFavorites([...favorites, video]);
+    }
+  };
+  const removeVideoFromFavorite = (video: IArenaVideo) => {
+    setFavorites(favorites.filter((videoFavorite) => video.DatProcessado !== videoFavorite.DatProcessado))
+    console.log(false)
 
+  }
   const video = useRef(null);
   const [status, setStatus] = useState({});
   return (
@@ -68,12 +80,15 @@ export function Search() {
         <C.Container>
 
 
- 
+
           <FlashList
             data={response}
-            keyExtractor={(item) => String(item.DatUpload)}
-            renderItem={({ item }) => (
-              <C.Content >
+            keyExtractor={(item) => String(item.HorarioVideoFrame)}
+            estimatedItemSize={2}
+            renderItem={({ item }) => {
+              const isFavorite = favorites.some((favVideo) => favVideo.play  === item.play);
+              return(
+                <C.Content >
                 <Video
                   ref={video}
                   style={styles.video}
@@ -89,15 +104,22 @@ export function Search() {
                     <Text style={styles.local}>{item.NomExibicao}</Text>
                     <Text style={styles.local}>{item.DatHora}</Text>
                   </View>
-                  <C.Favorite>
-                    <Feather name="heart" size={24} color={theme.colors.green_700} />
+                  <C.Favorite onPress={() => isFavorite ? removeVideoFromFavorite(item): addVideoToFavorite(item)}>
+                    {
+                      isFavorite ?
+                        <Entypo name="heart" size={24} color={theme.colors.green_700} />
+                        :
+                        <Entypo name="heart-outlined" size={24} color={theme.colors.green_700} />
+                    }
                   </C.Favorite>
 
 
                 </C.Description>
 
               </C.Content>
-            )}
+              )
+             
+            }}
           />
         </C.Container>
 
