@@ -5,7 +5,6 @@ import { theme } from "../../styles/theme";
 
 import { Api, token } from "../../services/api";
 import { IApiResponseArena, IArena } from "../../interfaces/IArena";
-import { IVideoInfo } from "../../interfaces/IVideoPlayer";
 import { useNavigation } from "@react-navigation/native";
 
 export function Striming() {
@@ -57,6 +56,7 @@ export function Striming() {
       <TextInput
         style={{ color: theme.colors.white, height: 40, borderColor: theme.colors.green_700, borderWidth: 1, margin: 10, paddingLeft: 15, borderRadius: 12 }}
         placeholder="Procure a quadra"
+        placeholderTextColor={theme.colors.gray_20}
         value={searchTerm}
         onChangeText={handleSearch}
       />

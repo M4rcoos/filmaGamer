@@ -58,14 +58,14 @@ export function Routes() {
         }}
         name="Favoritos" component={Favorites}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         options={{
           tabBarIcon: ({ size, color }) => (
             <Feather name="user" size={size} color={color} />
           )
         }}
         name="Perfil" component={Account}
-      />
+      /> */}
     </Tab.Navigator>
   )
 }

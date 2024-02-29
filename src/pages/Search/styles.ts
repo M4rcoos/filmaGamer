@@ -8,7 +8,7 @@ export const Container = styled.SafeAreaView`
   
 `
 export const Content = styled.TouchableOpacity`
-  flex-direction: row;
+  flex-direction: column;
   gap: 8px;
   align-items: center;
   margin-top: 18px;
@@ -32,5 +32,12 @@ border-bottom-color: ${theme.colors.gray_20};
 border-bottom-width: 2px;
 `
 export const Favorite = styled.TouchableOpacity`
+
+`
+export const Description = styled.View`
+flex-direction:row; 
+width: 100%;
+padding: 10px 18px;
+justify-content: space-between;
 
 `
